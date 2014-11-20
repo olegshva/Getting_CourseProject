@@ -13,7 +13,7 @@
 #  NOTE: here we assume, that we downloaded and unzipped data manually to working directory 
 #
 
-setwd("/Users/olegshvaikovskypro/R-Coursera/GettingCleaningData/CourseProject")
+setwd("/Users/olegshvaikovskypro/R-Coursera/GettingCleaningData/CourseProject/CourseProject_Clean_GettingDAta")
 
 #
 #    Data is in "/Users/olegshvaikovskypro/R-Coursera/GettingCleaningData/CourseProject/UCI HAR Dataset"
@@ -22,7 +22,8 @@ setwd("/Users/olegshvaikovskypro/R-Coursera/GettingCleaningData/CourseProject")
 
 features <- read.table("UCI HAR Dataset/features.txt", col.names=c("feature_id", "feature_label"),)
 activity_labels <- read.table("UCI HAR Dataset/activity_labels.txt", col.names=c("activity_id", "activity_label"),)
-activity_lables[,2]<-as.character(activity_lables[,2])
+activity_labels[,2]<-as.character(activity_labels[,2])
+
 
 #    --------------------------------------
 #    reading TRAIN data
@@ -70,7 +71,7 @@ colnames(MeanSD_Labeled)[1] <- "Activity"
 # 4. Appropriately labels the data set with descriptive activity names.
 
 for (i in 1:length(MeanSD_Labeled[,1])) {
-     MeanSD_Labeled[i,1]<-activity_lables[MeanSD_Labeled[i,1],2]
+     MeanSD_Labeled[i,1]<-activity_labels[MeanSD_Labeled[i,1],2]
 }
 
 #    ---------------------------------------
@@ -79,7 +80,7 @@ for (i in 1:length(MeanSD_Labeled[,1])) {
 MergedResult <- cbind( rbind (TrainDataSubjectTrain, TestDataSubjectTest), MeanSD_Labeled)
 colnames(MergedResult)[1] <- "Subject"
 
-# Result_TidyFrame <- aggregate( MergedResult[,3] ~ Subject+Activity, data = MergedResult, FUN= "mean" )
+Result_TidyFrame <- aggregate( MergedResult[,3] ~ Subject+Activity, data = MergedResult, FUN= "mean" )
 
 for (i in 4:ncol(MergedResult)) {
      Result_TidyFrame[,i] <- aggregate( MergedResult[,i] ~ Subject+Activity, data = MergedResult, FUN= "mean" )[,3]
