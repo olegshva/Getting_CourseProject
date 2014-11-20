@@ -94,6 +94,6 @@ if (file.exists("OlegTidyDataResult.txt")) {
 
 write.table(Result_TidyFrame, file = "OlegTidyDataResult.txt", row.name=FALSE)
 
-#    YESSSS!!!!!
+#    YESSSS!!!!!!
 
 
